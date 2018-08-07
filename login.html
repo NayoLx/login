@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title>登陆</title>
+		<meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+		<script type="text/javascript" src="js/jquery.min.js"></script>
+		<script type="text/javascript" src="js/public.js"></script>
+
+	</head>
+	<style>
+		body {
+			width: 100%;
+			height: 100%;
+		}
+		.submit {
+			width: 100px;
+		}
+	</style>
+
+	<body>
+		<div style="margin: 0 auto; width: 400px; top:10">
+				学号：<input id="username" type="text"/><br>
+				密码：<input id="password" type="password"/><br>
+				<div style="margin: 0 auto; width: 260px; padding-top: 10px;">
+					<button onclick="tocheck()" class="submit">查询</button>
+				</div>
+		</div>
+<script type="text/javascript">
+  function  tocheck(){
+        var user = $("#username").val();
+        var pass = $("#password").val();
+        Login(user,pass);
+    }
+</script>
+	</body>
+
+</html>
