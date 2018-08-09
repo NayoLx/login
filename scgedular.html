@@ -10,28 +10,23 @@
 	</head>
 
 	<body>
-		<script>
-			$(function() {
-				var jso = new Array();
-				$.ajaxSettings.async = false;
-				$.post('newphp/new.php', {
-						schoolyear: $('#schoolyear').val(),
-						semester: $('#semester').val()
-					},
-					function(data, status) {
-						jso = data;
-						var template = $('#template').html(); //获取模板
-						var compiled = Template7.compile(template); //编译模板
-						var htmlStr = compiled(jso); //使用模板加载数据
-						$('#content').html(htmlStr); //将得到的结果输出到指定区域
-					}, "json"
-				);
-				$.ajaxSettings.async = true;
-
-			});
-		</script>
 
 		<script id="template" type="text/template7">
+			<div>
+				学年:
+				<select id="schoolyear">
+					{{#each stugrade}}
+					<option value="{{this}}">{{this}}</option>
+					{{/each}}
+				</select>
+				学期:
+				<select id="semester">
+					<option value="1">1</option>
+					<option value="2">2</option>
+				</select>
+				<input value="提交" type="submit" id="removeattr" />
+				<h1 align="center">课程表</h1>
+			</div>
 
 			<table width="90%" align="center" border="1">
 				<tr>
@@ -55,38 +50,78 @@
 			</table>
 		</script>
 
-		<div>
+		<!--<div>
 			学年:
 			<select id="schoolyear">
-				<option value="2018" selected="">2018</option>
+				<option value="2018">2018</option>
 				<option value="2017">2017</option>
 				<option value="2016">2016</option>
 				<option value="2015">2015</option>
 			</select>
 			学期:
 			<select id="semester">
-				<option value="1" selected="">1</option>
+				<option value="1">1</option>
 				<option value="2">2</option>
 			</select>
 			<input value="提交" type="submit" id="removeattr" />
 			<h1 align="center">课程表</h1>
-		</div>
+		</div>-->
+
+		<div id="content"></div>
 
 		<script type="text/javascript">
-			$(document).ready(function() {
-				$("#removeattr").click(function() {
-					$("#schoolyear option").each(function(value) {
-						if($(this).val() == value) {
-							$(this).attr("selected", " ");
-						}
-					});
-				});
+			$(function() {
+
+				function templateMethod(jso) {
+					var template = $('#template').html(); //获取模板
+					var compiled = Template7.compile(template); //编译模板
+					var htmlStr = compiled(jso); //使用模板加载数据
+					$('#content').html(htmlStr); //将得到的结果输出到指定区域
+				}
+
+				/********方法一*******/
+				//				function clickEvent(){
+				//					$('#removeattr').click(function() {
+				//						var jso = new Array();
+				//						$.post('newphp/new.php', {
+				//								schoolyear: $('#schoolyear').find('option:selected').attr('value'),
+				//								semester: $('#semester').find('option:selected').attr('value')
+				//							},
+				//							function(data, status) {
+				//								jso = data;
+				//								template(jso);
+				//							}, "json"
+				//						);
+				//						
+				//					})
+				//				}
+				/***方法二***/
+				$('body').on('click', '#removeattr', function() {
+					var jso = new Array();
+					$.post('newphp/new.php', {
+							schoolyear: $('#schoolyear').find('option:selected').attr('value'),
+							semester: $('#semester').find('option:selected').attr('value')
+						},
+						function(data, status) {
+							jso = data;
+							templateMethod(jso);
+						}, "json"
+					);
+
+				})
+
+				var jso = new Array();
+				$.post('newphp/new.php', {
+						schoolyear: "2018",
+						semester: "1"
+					},
+					function(data, status) {
+						jso = data;
+						templateMethod(jso);
+					}, "json"
+				);
 			});
 		</script>
-
-		<div id="content">
-
-		</div>
 	</body>
 
 </html>

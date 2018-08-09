@@ -59,7 +59,10 @@ function get_schedular($content) {
 		/*存储学号和姓名到json*/
 		$data["stuNumber"] = isset($name_info[1][0]) ? $name_info[1][0] : '';
 		$data["stuName"] = isset($name_info[2][0]) ? $name_info[2][0] : '';
-		$data["stugrade"] = isset($name_info[3][0]) ? $name_info[3][0] : '';
+		$stu['stugrade'] = isset($name_info[3][0]) ? $name_info[3][0] : '';
+		for($i=3; $i>=0; $i--){
+		    $data["stugrade"][] = array($stu['stugrade'] + $i);
+		}
 //		session_start();
 		$_SESSION["temp"] = array($stu['stuName'], $stu['stugrade'], $stu['stuMajor']);
 

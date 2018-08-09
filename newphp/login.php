@@ -11,7 +11,7 @@ $loginUrl = "http://class.sise.com.cn:7001/sise/login_check_login.jsp"; //登录
 $schedularUrl = "http://class.sise.com.cn:7001/sise/module/student_schedular/student_schedular.jsp"; //课程表url
 
 //获取登录时需要的数据
-$logindatas = get_post_data($url, $username, $password, "183.14.135.123", 2);
+$logindatas = get_post_data($url, $username, $password, "183.14.134.29", 2);
 header("Content-type: text/html; charset=utf-8");
 //登录
 login_post($loginUrl, $cookie, $logindatas);
